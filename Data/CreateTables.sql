@@ -107,7 +107,7 @@ create table Player (
     PlayerDateOfBirth DATE NOT NULL,
     PositionID INT NOT NULL,
     CONSTRAINT PK_Player PRIMARY KEY (PlayerID),
-    CONSTRAINT UQ_Player UNIQUE (FirstLastName, PlayerDateOfBirth),
+    CONSTRAINT UQ_Player UNIQUE (PlayerID),
     CONSTRAINT FK_Player_Position FOREIGN KEY (PositionID) REFERENCES Position(PositionID)
 );
 
@@ -120,7 +120,7 @@ create table Roster (
     SeasonTies INT NOT NULL,
     TeamID INT NOT NULL,
     CONSTRAINT PK_Roster PRIMARY KEY (RosterID),
-    CONSTRAINT UQ_Roster UNIQUE (PlayerID, YearNum),
+    CONSTRAINT UQ_Roster UNIQUE (RosterID),
     CONSTRAINT FK_Roster_Player FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
     CONSTRAINT FK_Roster_Team FOREIGN KEY (TeamID) REFERENCES Team(TeamID)
 )   
