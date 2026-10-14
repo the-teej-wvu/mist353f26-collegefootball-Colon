@@ -167,8 +167,9 @@ create table PlayerStats (
     PlayerID INT NOT NULL,
     RosterID INT NOT NULL,
     CONSTRAINT PK_PlayerStats PRIMARY KEY (PlayerStatsID),
-    CONSTRAINT FK_PlayerStats_RosterPlayer FOREIGN KEY (RosterID, PlayerID) REFERENCES RosterPlayer(RosterID, PlayerID),
+    CONSTRAINT FK_PlayerStats_RosterPlayer FOREIGN KEY (RosterID, PlayerID) REFERENCES RosterPlayer(RosterID, PlayerID)
 );
+
 create table QBStats (
     PlayerStatsID INT NOT NULL,
     Attempts INT NOT NULL,
