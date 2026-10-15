@@ -1,14 +1,11 @@
-IF OBJECT_ID('Coach', 'U') IS NOT NULL
-    DROP TABLE Coach;
-
-IF OBJECT_ID('CoachRoster', 'U') IS NOT NULL
-    DROP TABLE CoachRoster;
-
 IF OBJECT_ID('WeeklyPredictionResults', 'U') IS NOT NULL
     DROP TABLE WeeklyPredictionResults;
 
 IF OBJECT_ID('GamePrediction', 'U') IS NOT NULL
     DROP TABLE GamePrediction;
+
+IF OBJECT_ID('GamePredictions', 'U') IS NOT NULL
+    DROP TABLE GamePredictions;
 
 IF OBJECT_ID('PunterStats', 'U') IS NOT NULL
     DROP TABLE PunterStats;
@@ -31,8 +28,17 @@ IF OBJECT_ID('QBStats', 'U') IS NOT NULL
 IF OBJECT_ID('PlayerStats', 'U') IS NOT NULL
     DROP TABLE PlayerStats;
 
+IF OBJECT_ID('RosterPlayer', 'U') IS NOT NULL
+    DROP TABLE RosterPlayer;
+
+IF OBJECT_ID('CoachRoster', 'U') IS NOT NULL
+    DROP TABLE CoachRoster;
+
 IF OBJECT_ID('Roster', 'U') IS NOT NULL
     DROP TABLE Roster;
+
+IF OBJECT_ID('Coach', 'U') IS NOT NULL
+    DROP TABLE Coach;
 
 IF OBJECT_ID('Player', 'U') IS NOT NULL
     DROP TABLE Player;
@@ -52,11 +58,8 @@ IF OBJECT_ID('Stadium', 'U') IS NOT NULL
 IF OBJECT_ID('AppUser', 'U') IS NOT NULL
     DROP TABLE AppUser;
 
-IF OBJECT_ID('Confernece', 'U') IS NOT NULL
+IF OBJECT_ID('Conference', 'U') IS NOT NULL
     DROP TABLE Conference;
-
-IF OBJECT_ID('TestTable', 'U') IS NOT NULL
-    DROP TABLE TestTable;
 
 GO
 
@@ -70,7 +73,9 @@ create table Conference (
 create table Stadium (
     StadiumID INT NOT NULL IDENTITY(1,1),
     StadiumName VARCHAR(50) NOT NULL,
-    StadiumAddress VARCHAR(100) NOT NULL,
+    StadiumStreetAddress VARCHAR(100) NOT NULL,
+    StadiumCity VARCHAR(50) NOT NULL,
+    StadiumState CHAR(2) NOT NULL,
     Capacity INT NOT NULL,
     TypeOfField VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Stadium PRIMARY KEY (StadiumID),
@@ -92,19 +97,7 @@ CREATE TABLE Team (
 
 go
 
-create table Coach (
-    CoachID INT NOT NULL IDENTITY(1,1),
-    CoachName VARCHAR(50) NOT NULL,
-    CONSTRAINT PK_Coach PRIMARY KEY (CoachID)
-);
 
-create table CoachRoster (
-    CoachID INT NOT NULL,
-    RosterID INT NOT NULL,
-    CONSTRAINT PK_CoachRoster PRIMARY KEY (CoachID, RosterID),
-    CONSTRAINT FK_CoachRoster_Coach FOREIGN KEY (CoachID) REFERENCES Coach(CoachID),
-    CONSTRAINT FK_CoachRoster_Roster FOREIGN KEY (RosterID) REFERENCES Roster(RosterID)
-);
 
 create table Game (
     GameID INT NOT NULL IDENTITY(1,1),
@@ -153,6 +146,12 @@ create table Player (
     CONSTRAINT FK_Player_Position FOREIGN KEY (PositionID) REFERENCES Position(PositionID)
 );
 
+create table Coach (
+    CoachID INT NOT NULL IDENTITY(1,1),
+    CoachName VARCHAR(50) NOT NULL,
+    CONSTRAINT PK_Coach PRIMARY KEY (CoachID)
+);
+
 create table Roster (
     RosterID INT NOT NULL IDENTITY(1,1),
     YearNum INT NOT NULL,
@@ -160,10 +159,8 @@ create table Roster (
     SeasonLosses INT NOT NULL,
     SeasonTies INT NOT NULL,
     TeamID INT NOT NULL,
-    CoachID INT NOT NULL,
     CONSTRAINT PK_Roster PRIMARY KEY (RosterID),
-    CONSTRAINT FK_Roster_Team FOREIGN KEY (TeamID) REFERENCES Team(TeamID),
-    CONSTRAINT FK_Roster_Coach FOREIGN KEY (CoachID) REFERENCES Coach(CoachID)
+    CONSTRAINT FK_Roster_Team FOREIGN KEY (TeamID) REFERENCES Team(TeamID)
 );
 
 GO
@@ -273,6 +270,14 @@ CREATE TABLE WeeklyPredictionResults (
     AppUserID INT NOT NULL,
     CONSTRAINT PK_WeeklyPredictionResults PRIMARY KEY (WeeklyPredictionResultsId),
     CONSTRAINT FK_WeeklyPredictionResults_AppUser FOREIGN KEY (AppUserID) REFERENCES AppUser(AppUserID)
+);
+
+create table CoachRoster (
+    CoachID INT NOT NULL,
+    RosterID INT NOT NULL,
+    CONSTRAINT PK_CoachRoster PRIMARY KEY (CoachID, RosterID),
+    CONSTRAINT FK_CoachRoster_Coach FOREIGN KEY (CoachID) REFERENCES Coach(CoachID),
+    CONSTRAINT FK_CoachRoster_Roster FOREIGN KEY (RosterID) REFERENCES Roster(RosterID)
 );
 
 GO
