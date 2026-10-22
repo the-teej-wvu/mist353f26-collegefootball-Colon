@@ -49,6 +49,9 @@ IF OBJECT_ID('Position', 'U') IS NOT NULL
 IF OBJECT_ID('Game', 'U') IS NOT NULL
     DROP TABLE Game;
 
+IF OBJECT_ID('AppUserTeam', 'U') IS NOT NULL
+    DROP TABLE AppUserTeam;
+
 IF OBJECT_ID('Team', 'U') IS NOT NULL
     DROP TABLE Team;
 
@@ -127,6 +130,15 @@ CREATE TABLE AppUser (
     CONSTRAINT PK_AppUser PRIMARY KEY (AppUserId)
 );
 
+CREATE TABLE AppUserTeam (
+    AppUserID INT NOT NULL,
+    TeamID INT NOT NULL,
+    CONSTRAINT PK_AppUserTeam PRIMARY KEY (AppUserID, TeamID),
+    CONSTRAINT FK_AppUserTeam_AppUser
+        FOREIGN KEY (AppUserID) REFERENCES AppUser(AppUserID),
+    CONSTRAINT FK_AppUserTeam_Team
+        FOREIGN KEY (TeamID) REFERENCES Team(TeamID)
+);
 
 create table Position (
     PositionID INT NOT NULL IDENTITY(1,1),
