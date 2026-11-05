@@ -14,14 +14,14 @@ import requests
 
 CONN_STR = (
     "Driver={ODBC Driver 18 for SQL Server};"
-    "Server=;"
-    "Database=;"
-    "Uid=;"
-    "Pwd=;"
+    "Server=tcp:mist353f26-colon-server.database.windows.net;"
+    "Database=CollegeFootballRDBColon;"
+    "Uid=TJisAdmin;"
+    "Pwd=TJisC00l;"
     "Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
 )
 
-API_KEY = ""
+API_KEY = "Ehv0uIxgoQbaLvmLdmn8hFVfIgs6ODLmqVyCoK8IDBWPCvx/rdbVRPZqMFIUXWte"
 
 BASE_URL = "https://api.collegefootballdata.com"
 HEADERS = {"Authorization": f"Bearer {API_KEY}", "Accept": "application/json"}
