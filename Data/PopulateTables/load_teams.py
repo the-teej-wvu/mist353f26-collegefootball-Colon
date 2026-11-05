@@ -1,8 +1,8 @@
 """
 Load Conference, Stadium, and Team tables from the CollegeFootballData.com API.
 
-Setup:
-    pip install requests pyodbc
+Set:
+    py -m pip install requests pyodbc
     CFBD_API_KEY
     CONN_STR
 """
