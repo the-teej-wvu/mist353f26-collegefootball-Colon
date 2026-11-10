@@ -1,3 +1,4 @@
+/*
 if object_id('WRStats', 'U') is not null drop table WRStats;
 if object_id('GamePrediction', 'U') is not null drop table GamePrediction;
 if object_id('CoachRoster', 'U') is not null drop table CoachRoster;
@@ -21,9 +22,8 @@ if object_id('PlayerPosition') is not null drop table PlayerPosition;
 if object_id('Player') is not null drop table Player;
 if object_id('Position') is not null drop table Position;
 if object_id('Conference') is not null drop table Conference;
-
 go
-
+*/
 create table Stadium (
     StadiumID INT NOT NULL IDENTITY(1,1),
     StadiumName NVARCHAR(50) NOT NULL,
